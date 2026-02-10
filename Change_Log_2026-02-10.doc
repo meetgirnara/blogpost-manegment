@@ -1,0 +1,104 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Change Log — 2026-02-10</title>
+</head>
+<body>
+  <h1>Change Log — 2026-02-10</h1>
+  <p>Summary: This document lists the edits made today in the project <strong>blogpost-manegment</strong>, with a short description of what changed in each file and where those changes are used in the app.</p>
+
+  <h2>Files changed / added (with descriptions)</h2>
+  <ul>
+    <li><strong>src/pages/Login.jsx</strong>
+      <ul>
+        <li>Added client-side validation for email and password (required + patterns / min length).</li>
+        <li>Added state management: <code>formData</code>, <code>errors</code>, <code>touched</code>.</li>
+        <li>Show inline error messages and apply error input class <code>input-error</code>.</li>
+        <li>Disabled the Login button until the form is valid.</li>
+        <li>On successful validation, navigate to <code>/dashboard</code>.</li>
+        <li>Where used: this is the login screen shown at route <code>/login</code> (imported by <code>src/App.jsx</code>).</li>
+      </ul>
+    </li>
+
+    <li><strong>src/pages/Login.css</strong>
+      <ul>
+        <li>Added error input styles (<code>.input-error</code>) and error message styles (<code>.error-message</code>).</li>
+        <li>Added disabled styling for the submit button (<code>.btn-primary:disabled</code>).</li>
+        <li>Where used: styling applies to the Login form (and Dashboard uses the same layout styles).</li>
+      </ul>
+    </li>
+
+    <li><strong>src/pages/Register.jsx</strong>
+      <ul>
+        <li>Added client-side validation for name, email, phone, password, and confirm password.</li>
+        <li>Manage <code>formData</code>, <code>errors</code>, <code>touched</code> and show inline errors.</li>
+        <li>On successful registration, navigate to <code>/login</code>.</li>
+        <li>Where used: registration page at route <code>/register</code> (imported by <code>src/App.jsx</code>).</li>
+      </ul>
+    </li>
+
+    <li><strong>src/pages/Register.css</strong>
+      <ul>
+        <li>Added error input and error message styles (same pattern as login CSS) to show validation states.</li>
+        <li>Where used: Register form styling.</li>
+      </ul>
+    </li>
+
+    <li><strong>src/App.jsx</strong>
+      <ul>
+        <li>Set up routing using <code>react-router-dom</code> with routes:</li>
+        <ul>
+          <li><code>/login</code> → <code>src/pages/Login.jsx</code></li>
+          <li><code>/register</code> → <code>src/pages/Register.jsx</code></li>
+          <li><code>/dashboard</code> → <code>src/pages/Dashboard.jsx</code> (added)</li>
+          <li><code>/</code> → redirect to <code>/login</code></li>
+        </ul>
+        <li>Where used: root router for the app (entry point: <code>src/main.jsx</code>).</li>
+      </ul>
+    </li>
+
+    <li><strong>src/pages/Dashboard.jsx</strong> (new)
+      <ul>
+        <li>Added a simple Dashboard page that re-uses the form layout styles; includes a Logout button that navigates back to <code>/login</code>.</li>
+        <li>Where used: protected area placeholder, route <code>/dashboard</code> (imported by <code>src/App.jsx</code>).</li>
+      </ul>
+    </li>
+
+    <li><strong>src/auth/AuthGuard.jsx</strong> and <strong>src/auth/AuthContext.jsx</strong> (created earlier, then removed)
+      <ul>
+        <li>Note: An authentication context and guard were added earlier during today's edits, then later removed per your request. They are not present now — the project currently uses client-side navigation only (no persistent auth).</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Where each change is used</h2>
+  <ol>
+    <li><strong>Login validation and behavior</strong>
+      <p>Applied in <code>src/pages/Login.jsx</code>. The form validates inputs and, upon success, navigates to <code>/dashboard</code>. The UI changes (error borders and messages) are defined in <code>src/pages/Login.css</code>. The route is registered in <code>src/App.jsx</code>.</p>
+    </li>
+
+    <li><strong>Register validation and behavior</strong>
+      <p>Applied in <code>src/pages/Register.jsx</code>. On successful registration the app navigates to <code>/login</code>. Error styles live in <code>src/pages/Register.css</code>. The route is registered in <code>src/App.jsx</code>.</p>
+    </li>
+
+    <li><strong>Dashboard</strong>
+      <p>Added <code>src/pages/Dashboard.jsx</code> and route <code>/dashboard</code> in <code>src/App.jsx</code>. Currently, access control is not enforced — any client can navigate to the route. (If you want protection, we can re-add an auth context and an AuthGuard.)</p>
+    </li>
+  </ol>
+
+  <h2>Commands to run and test locally</h2>
+  <pre>
+  npm run dev
+  # then open http://localhost:5174
+  </pre>
+
+  <h2>Notes / Next steps you might want</h2>
+  <ul>
+    <li>If you want <strong>persistent login</strong> (so dashboard stays after refresh), I can add simple localStorage-based auth and a route guard.</li>
+    <li>If you want this document in a different format (.docx proper or PDF), tell me and I will generate and add it to the workspace.</li>
+    <li>I did not modify any files while creating this log (per your request).</li>
+  </ul>
+
+  <p>File saved at: <strong>Change_Log_2026-02-10.doc</strong> in the project root.</p>
+</body>
+</html>

@@ -112,6 +112,12 @@ body {
   background: #1e3c72;
 }
 
+/* Disabled button */
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Login text */
 .link-text {
   margin-top: 22px;
