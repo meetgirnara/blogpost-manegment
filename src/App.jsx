@@ -10,6 +10,7 @@ import AuthGuard from "./auth/AuthGuard";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Navbar from "./component/Navbar";
 
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
