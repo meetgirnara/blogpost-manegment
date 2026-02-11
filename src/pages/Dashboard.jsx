@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
 
 const Dashboard = () => {
   const navigate = useNavigate()
+
+  // Check if loginData exists; if not, redirect to login
+  useEffect(() => {
+    if (!localStorage.getItem('loginData')) {
+      navigate('/login', { replace: true })
+    }
+  }, [navigate])
 
   const handleLogout = () => {
     // Clear login data and return to login

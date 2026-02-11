@@ -1,211 +1,194 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import './Register.css'
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: ''
-  })
-  const [errors, setErrors] = useState({})
-  const [touched, setTouched] = useState({})
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const validateForm = () => {
-    const newErrors = {}
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // Name validation
-    if (!formData.name) {
-      newErrors.name = 'Full name is required'
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required.";
     } else if (formData.name.length < 3) {
-      newErrors.name = 'Name must be at least 3 characters'
+      newErrors.name = "Minimum 3 characters required.";
     }
 
-    // Email validation
-    if (!formData.email) {
-      newErrors.email = 'Email is required'
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email'
+      newErrors.email = "Invalid email address.";
     }
 
-    // Phone validation
-    if (!formData.phone) {
-      newErrors.phone = 'Phone number is required'
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number'
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
+      newErrors.phone = "Phone number must be 10 digits.";
     }
 
-    // Password validation
     if (!formData.password) {
-      newErrors.password = 'Password is required'
+      newErrors.password = "Password is required.";
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters'
+      newErrors.password = "Minimum 6 characters required.";
     }
 
-    // Confirm Password validation
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password'
+      newErrors.confirmPassword = "Confirm password is required.";
     } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match'
+      newErrors.confirmPassword = "Passwords do not match.";
     }
 
-    return newErrors
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-    // Clear error for this field when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }))
-    }
-  }
-
-  const handleBlur = (e) => {
-    const { name } = e.target
-    setTouched(prev => ({
-      ...prev,
-      [name]: true
-    }))
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const newErrors = validateForm()
+    e.preventDefault();
+    if (!validate()) return;
 
-    if (Object.keys(newErrors).length === 0) {
-      // Form is valid, navigate to login page
-      console.log('Registration successful:', formData)
-      navigate('/login')
-    } else {
-      setErrors(newErrors)
-      setTouched({
-        name: true,
-        email: true,
-        phone: true,
-        password: true,
-        confirmPassword: true
-      })
-    }
-  }
+    localStorage.setItem(
+      "authData",
+      JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+      }),
+    );
+
+    toast.success("Registration successful!👍");
+    navigate("/Login");
+  };
 
   return (
     <div className="form-container">
-      {/* Page Title */}
       <h1 className="form-title">CREATE ACCOUNT</h1>
-      <h5>Join us and start journey</h5>
       <form onSubmit={handleSubmit}>
-        {/* Name Field */}
+        {/* Name */}
         <div className="form-group">
-          <label htmlFor="name">Full Name</label>
+          <label>Full Name</label>
           <input
-            type="text"
-            id="name"
             name="name"
             placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
-            onBlur={handleBlur}
-            className={errors.name && touched.name ? 'input-error' : ''}
+            className={errors.name ? "error-input" : ""}
           />
-          {errors.name && touched.name && (
-            <span className="error-message">{errors.name}</span>
-          )}
+          {errors.name && <span className="error">{errors.name}</span>}
         </div>
 
-        {/* Email Field */}
+        {/* Email */}
         <div className="form-group">
-          <label htmlFor="email">Email Address</label>
+          <label>Email Address</label>
           <input
-            type="email"
-            id="email"
             name="email"
             placeholder="Enter your email address"
             value={formData.email}
             onChange={handleChange}
-            onBlur={handleBlur}
-            className={errors.email && touched.email ? 'input-error' : ''}
+            className={errors.email ? "error-input" : ""}
           />
-          {errors.email && touched.email && (
-            <span className="error-message">{errors.email}</span>
-          )}
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
 
-        {/* Phone Number Field */}
+        {/* Phone */}
         <div className="form-group">
-          <label htmlFor="phone">Phone Number</label>
+          <label>Phone Number</label>
           <input
-            type="tel"
-            id="phone"
             name="phone"
             placeholder="Enter your phone number"
             value={formData.phone}
             onChange={handleChange}
-            onBlur={handleBlur}
-            className={errors.phone && touched.phone ? 'input-error' : ''}
+            className={errors.phone ? "error-input" : ""}
           />
-          {errors.phone && touched.phone && (
-            <span className="error-message">{errors.phone}</span>
-          )}
+          {errors.phone && <span className="error">{errors.phone}</span>}
         </div>
 
-        {/* Password Field */}
+        {/* Password */}
         <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Create a password"
-            value={formData.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={errors.password && touched.password ? 'input-error' : ''}
-          />
-          {errors.password && touched.password && (
-            <span className="error-message">{errors.password}</span>
-          )}
+          <label>Password</label>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Create a password"
+              value={formData.password}
+              onChange={handleChange}
+              className={errors.password ? "error-input" : ""}
+            />
+            <span
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
 
-        {/* Confirm Password Field */}
+        {/* Confirm Password */}
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={errors.confirmPassword && touched.confirmPassword ? 'input-error' : ''}
-          />
-          {errors.confirmPassword && touched.confirmPassword && (
-            <span className="error-message">{errors.confirmPassword}</span>
+          <label>Confirm Password</label>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={errors.confirmPassword ? "error-input" : ""}
+            />
+            <span
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword}</span>
           )}
         </div>
 
-        {/* Submit Button */}
         <button type="submit" className="btn-primary">
           Register
         </button>
       </form>
-      {/* Link to Login Page */}
+
       <p className="link-text">
-        Already have an account? <Link to="/login">Login here</Link>
+        Already have an account? <a href="/Login">Login here</a>
       </p>
     </div>
   );
 };
 
-export default Register
+export default Register;

@@ -1,24 +1,75 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import './App.css'
-import Register from './pages/Register'
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
-import AuthGuard from './auth/AuthGuard'
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import AuthGuard from "./auth/AuthGuard";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+const DefaultRoute = () => {
+  const loginData = JSON.parse(localStorage.getItem("loginData"));
+  if (loginData) {
+    return <Navigate to="/Login" replace />;
+  }
+  return <Navigate to="/Register" replace />;
+};
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <DefaultRoute />,
+    },
+    {
+      path: "/Login",
+      element: (
+        <AuthGuard required={false}>
+          <Login />
+        </AuthGuard>
+      ),
+    },
+    {
+      path: "/Register",
+      element: (
+        <AuthGuard required={false}>
+          <Register />
+        </AuthGuard>
+      ),
+    },
+    {
+      path: "/Dashboard",
+      element: (
+        <AuthGuard required={true}>
+          <Dashboard />
+        </AuthGuard>
+      ),
+    },
+  ]);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/authguard" element={<AuthGuard />}></Route>
-      </Routes>
-    </Router>
-    
-  )
+    <>
+      <RouterProvider router={router} />
+
+      {/* ✅ Toast container added ONCE */}
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
+  );
 }
 
-export default App
-      
+export default App;
