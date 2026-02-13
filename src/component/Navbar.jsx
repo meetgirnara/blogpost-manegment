@@ -4,8 +4,8 @@ import "./Navbar.css";
 
 const Navbar = ({ onLogout }) => {
   // Get user email from localStorage to display
-  const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
-  const userName = loginData?.email?.split("@")[0] || "User";
+  const authData = JSON.parse(localStorage.getItem("authData") || "{}");
+  const userName = authData?.name || "User";
 
   return (
     <nav className="navbar">
@@ -21,7 +21,7 @@ const Navbar = ({ onLogout }) => {
           </NavLink>
 
           <NavLink to="/create-post" className="nav-item">
-            <FaPlusSquare className="nav-icon" /> Create Post
+            <FaPlusSquare className="nav-icon"/> Create Post
           </NavLink>
         </div>
 
