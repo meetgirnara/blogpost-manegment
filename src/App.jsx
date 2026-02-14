@@ -60,6 +60,14 @@ function App() {
         </AuthGuard>
       ),
     },
+    {
+      path: "/create-post/:id",
+      element: (
+        <AuthGuard required={true}>
+          <CreatePost />
+        </AuthGuard>
+      ),
+    },
   ]);
 
   return (

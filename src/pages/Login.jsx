@@ -40,83 +40,88 @@ const Login = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    const user = JSON.parse(localStorage.getItem("authData"));
+    const users = JSON.parse(localStorage.getItem("authData")) || [];
 
-    if (
-      user &&
-      loginData.email === user.email &&
-      loginData.password === user.password
-    ) {
+    const user = users.find(
+      (u) =>
+        u.email === loginData.email &&
+        u.password === loginData.password
+    );
+
+    if (user) {
       localStorage.setItem(
         "loginData",
         JSON.stringify({
+          username: user.username,
           email: user.email,
-          isLoggedIn: true,
-        }),
+        })
       );
-      toast.success("login successful!😊");
-      navigate("/Dashboard");
+
+      toast.success("Login successful!");
+      navigate("/dashboard");
     } else {
-      alert("Invalid email or password");
+      toast.error("Invalid email or password ❌");
     }
   };
 
   return (
     <div className="register-page">
-    <div className="form-container">
-      <h1 className="form-title">LOGIN</h1>
+      <div className="form-container">
+        <h1 className="form-title">LOGIN</h1>
 
-      <form onSubmit={handleSubmit}>
-        {/* Email */}
-        <div className="form-group">
-          <label>Email Address</label>
-          <input
-            name="email"
-            placeholder="Enter your email address"
-            value={loginData.email}
-            onChange={handleInputChange}
-            className={errors.email ? "error-input" : ""}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-
-        {/* Password */}
-        <div className="form-group">
-          <label>Password</label>
-          <div style={{ position: "relative" }}>
+        <form onSubmit={handleSubmit}>
+          {/* Email */}
+          <div className="form-group">
+            <label>Email Address</label>
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Enter your password"
-              value={loginData.password}
+              name="email"
+              placeholder="Enter your email address"
+              value={loginData.email}
               onChange={handleInputChange}
-              className={errors.password ? "error-input" : ""}
+              className={errors.email ? "error-input" : ""}
             />
-            <span
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </span>
+            {errors.email && <span className="error">{errors.email}</span>}
           </div>
-          {errors.password && <span className="error">{errors.password}</span>}
-        </div>
 
-        <button type="submit" className="btn-primary">
-          Login
-        </button>
-      </form>
+          {/* Password */}
+          <div className="form-group">
+            <label>Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                value={loginData.password}
+                onChange={handleInputChange}
+                className={errors.password ? "error-input" : ""}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
+          </div>
 
-      <p className="link-text">
-        Don't have an account? <a href="/Register">Register here</a>
-      </p>
-    </div>
+          <button type="submit" className="btn-primary">
+            Login
+          </button>
+        </form>
+
+        <p className="link-text">
+          Don't have an account? <a href="/Register">Register here</a>
+        </p>
+      </div>
     </div>
   );
 };
