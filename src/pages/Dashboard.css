@@ -1,3 +1,11 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a10dd2, #2a5298);
+  justify-content: center;
+  align-items: center;
+  
+}
 .dashboard-page {
   min-height: 100vh;
   background-color: white;
@@ -5,11 +13,10 @@
 }
 
 .dashboard-main {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 3rem 2rem;
 }
-
-/* WELCOME SECTION */
 
 .dashboard-welcome h1 {
   font-size: 2.25rem;
@@ -17,15 +24,11 @@
   margin-bottom: 0.5rem;
   font-weight: 800;
 }
-
 .dashboard-welcome p {
   color: #4b5563;
   font-size: 1.1rem;
   margin-bottom: 3rem;
 }
-
-/* STATS */
-
 .dashboard-stats-overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -40,12 +43,13 @@
     0 4px 6px rgba(0, 0, 0, 0.2),
     0 1px 3px rgba(0, 0, 0, 0.5);
   border: 1px solid #f3f4f6;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .dash-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
@@ -65,8 +69,6 @@
   color: #111827;
 }
 
-/* POSTS SECTION */
-
 .posts-section {
   margin-top: 4rem;
 }
@@ -77,7 +79,6 @@
   align-items: center;
   margin-bottom: 2rem;
 }
-
 .create-shortcut-btn {
   display: flex;
   align-items: center;
@@ -114,12 +115,10 @@
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
-  height: 20px;
+  height: 1.5px;
   background: #6366f1;
   border-radius: 2px;
 }
-
-/* POSTS GRID */
 
 .posts-grid {
   display: grid;
@@ -142,32 +141,29 @@
 .post-card:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 20px 25px -5 rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
-/* IMAGE */
-
 .post-image-container {
-  height: 200px;
   width: 100%;
-  overflow: hidden;
   position: relative;
 }
 
-.post-card img {
+.post-card-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  height: auto;
+  object-fit: contain;   /* Full image show */
+  display: block;
 }
 
-.post-card:hover .post-image-container img {
+
+.post-card:hover .post-image-container image {
   transform: scale(1.1);
 }
-
-/* ACTION BUTTONS */
-
+.post-card-hover .post-card-image {
+  transform: scale(1.1);
+}
 .post-actions {
   position: absolute;
   top: 15px;
@@ -188,12 +184,20 @@
   height: 38px;
   border-radius: 10px;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   cursor: pointer;
   transition: all 0.2s;
+  background: white;
   padding: 0;
+}
+.action-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  display: block;
 }
 
 .edit-btn {
@@ -214,8 +218,6 @@
   transform: scale(1.1);
 }
 
-/* CONTENT */
-
 .post-card-content {
   padding: 1.5rem;
   display: flex;
@@ -231,7 +233,6 @@
   margin-bottom: 0.75rem;
   font-weight: 500;
 }
-
 .post-card-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -239,18 +240,21 @@
   margin-bottom: 0.75rem;
   line-height: 1.4;
 }
-
 .post-card-description {
   color: #4b5563;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-
 .read-more-btn {
   margin-top: auto;
   background: #f3f4f6;
-  color: #4b5563;
+  color: #4b554b;
   border: none;
   padding: 0.75rem 1rem;
   border-radius: 10px;
@@ -259,30 +263,16 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-
 .post-card:hover .read-more-btn {
-  background: #eef2ff;
+  background: #eef2ee;
   color: #6366f1;
 }
-
-/* STATES */
-
-.no-posts,
-.loading-spinner {
+.no-posts {
   text-align: center;
   padding: 4rem;
+  background: #f3f4f6;
+  border-radius: 20px;
   color: #6b7280;
+  font-size: 1.1rem;
   grid-column: 1 / -1;
-}
-
-/* MOBILE */
-
-@media (max-width: 640px) {
-  .dashboard-main {
-    padding: 2rem 1rem;
-  }
-
-  .dashboard-welcome h1 {
-    font-size: 1.75rem;
-  }
 }
