@@ -1,41 +1,32 @@
-import {
-  FaBlog,
-  FaChartBar,
-  FaHome,
-  FaMoon,
-  FaPlusSquare,
-  FaSun,
-  FaSignOutAlt,
-} from "react-icons/fa";
-
+import { FaBlog, FaChartBar, FaHome, FaMoon, FaPlusSquare, FaSignOutAlt, FaStar, FaSun } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
 import "./Navbar.css";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
-  const authData = JSON.parse(localStorage.getItem("authData") || "{}");
 
-  const userName = authData?.name || authData?.email?.split("@")[0] || "User";
+  const {theme , toggleTheme} = useTheme();
+
+  const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
+  const userName = loginData?.username || "User";
 
   const handleLogout = () => {
-    localStorage.removeItem("authData");
-    localStorage.removeItem("user");
-
-    navigate("/login");
+    localStorage.removeItem("loginData");  
+    navigate("/login");                   
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* LOGO */}
+
+        {/* Logo */}
         <div className="navbar-logo">
           <FaBlog className="logo-icon" />
           <span className="logo-text">BlogPost</span>
         </div>
 
-        {/* LINKS */}
+        {/* Links */}
         <div className="navbar-links">
           <NavLink to="/dashboard" className="nav-item">
             <FaHome className="nav-icon" /> Home
@@ -45,30 +36,31 @@ const Navbar = () => {
             <FaPlusSquare className="nav-icon" /> Create Post
           </NavLink>
 
-          <NavLink to="/analytics" className="nav-item">
-            <FaChartBar className="nav-icon" /> Analytics
+          
+          <NavLink to="/Analytics" className="nav-item">
+            <FaChartBar className="nav-icon" />
+            Analytics
+          </NavLink>
+
+          <NavLink to="/Favourites" className="nav-item">
+            <FaStar className="nav-icon"/>
+            Favourites
           </NavLink>
         </div>
 
-        {/* ACTIONS */}
+        {/* Right Side */}
         <div className="navbar-actions">
-          {/* userName FIXED */}
           <span className="user-name">Hi, {userName}</span>
 
-          {/* THEME BUTTON */}
-          <button
-            className="theme-toggle-btn"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === "light" ? <FaMoon /> : <FaSun />}
+          <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+            {theme === 'light' ? <FaMoon/> : <FaSun/>}
           </button>
 
-          {/*Logout FIXED */}
           <button className="logout-btn" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
           </button>
         </div>
+
       </div>
     </nav>
   );

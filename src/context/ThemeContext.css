@@ -1,12 +1,11 @@
-/* ================= GLOBAL DARK MODE ================= */
-
+/*  */
 [data-theme="dark"] body {
-  background-color: #0f172a;
+  background-color: #0f1721;
   color: #f8fafc;
 }
 
 [data-theme="dark"] .navbar {
-  background-color: #1e293b;
+  background: #1e293b;
   border-bottom: 1px solid #334155;
 }
 
@@ -33,26 +32,10 @@
   background: rgba(220, 38, 38, 0.3);
 }
 
+/*  */
 [data-theme="dark"] .dashboard-page {
   background-color: #0f172a;
 }
-
-[data-theme="dark"] .dash-card {
-  background: #1e293b;
-  border-color: #334155;
-}
-
-[data-theme="dark"] .dash-card h3 {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .dash-card h1,
-[data-theme="dark"] .dash-card h2,
-[data-theme="dark"] .dash-card span {
-  color: #ffffff;
-}
-
-/* Other dashboard text */
 
 [data-theme="dark"] .dashboard-welcome h1,
 [data-theme="dark"] .section-title,
@@ -62,10 +45,12 @@
 
 [data-theme="dark"] .dashboard-welcome p,
 [data-theme="dark"] .post-meta,
-[data-theme="dark"] .post-card-description {
+[data-theme="dark"] .post-card-description,
+[data-theme="dark"] .dash-card h3 {
   color: #94a3b8;
 }
 
+[data-theme="dark"] .dash-card,
 [data-theme="dark"] .post-card {
   background: #1e293b;
   border-color: #334155;
@@ -81,6 +66,7 @@
   color: #818cf8;
 }
 
+/*  */
 [data-theme="dark"] .create-post-page {
   background-color: #0f172a;
 }
@@ -107,7 +93,7 @@
 
 [data-theme="dark"] .form-control:focus {
   border-color: #818cf8;
-  background-color: #475569;
+  background-color: #1e293b;
 }
 
 [data-theme="dark"] .image-upload-area {
@@ -127,7 +113,7 @@
   color: #94a3b8;
 }
 
-[data-theme="dark"] .tab-btn-active {
+[data-theme="dark"] .tab-btn.active {
   background: #1e293b;
   color: #818cf8;
 }
@@ -138,8 +124,9 @@
   border-color: #475569;
 }
 
+/*  */
 [data-theme="dark"] .analytics-page {
-  background: #0f172a;
+  background-color: #0f172a;
 }
 
 [data-theme="dark"] .analytics-header h1 {
@@ -168,7 +155,6 @@
 
 [data-theme="dark"] .analytics-table td {
   color: #f8fafc;
-  border-color: #334155;
 }
 
 [data-theme="dark"] .analytics-table tr:hover {
@@ -185,8 +171,13 @@
   background: #334155;
 }
 
+/*  */
 [data-theme="dark"] .post-details-page {
   background-color: #1e293b;
+}
+[data-theme="dark"] .full-post {
+  background-color: #233049;
+  box-shadow: 0 4px 6px -1px rgba(243, 236, 236, 0.2);
 }
 
 [data-theme="dark"] .post-full-title,
@@ -195,7 +186,6 @@
 [data-theme="dark"] .post-share span {
   color: #f8fafc;
 }
-
 [data-theme="dark"] .post-date-row {
   color: #94a3b8;
 }
@@ -216,6 +206,7 @@
   color: #818cf8;
 }
 
+/*  */
 .theme-toggle-btn {
   display: flex;
   align-items: center;
@@ -236,9 +227,59 @@
   color: #6366f1;
   transform: rotate(15deg);
 }
-
 [data-theme="dark"] .theme-toggle-btn {
   background: #334155;
   color: #f8fafc;
   border-color: #475569;
+}
+
+[data-theme="dark"] .favorites-page-container {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .favorites-header {
+  border-color: #334155;
+}
+
+[data-theme="dark"] .favorites-header h2,
+[data-theme="dark"] .fav-title,
+[data-theme="dark"] .fav-empty-state h3 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .fav-meta,
+[data-theme="dark"] .fav-excerpt,
+[data-theme="dark"] .fav-empty-state p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .count-badge {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .fav-card,
+[data-theme="dark"] .fav-empty-state {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .favorites-hero {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .read-btn {
+  background: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .read-fav-btn {
+  background: rgba(229, 62, 62, 0.1);
+  color: #f87171;
+}
+
+[data-theme="dark"].remove-fav-btn:hover {
+  background: #e53e3e;
+  color: white;
 }

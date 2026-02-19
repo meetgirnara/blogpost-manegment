@@ -13,6 +13,8 @@ import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
 import PostDetails from "./pages/PostDetails";
 import Analytics from "./pages/Analytics";
+import Favorites from "./pages/Favorites";
+
 
 
 const DefaultRoute = () => {
@@ -84,6 +86,14 @@ function App() {
       element: (
         <AuthGuard required={true}>
           <Analytics />
+        </AuthGuard>
+      ),
+    },
+    {
+      path: "/Favourites",
+      element: (
+        <AuthGuard required={true}>
+          <Favorites />
         </AuthGuard>
       ),
     }

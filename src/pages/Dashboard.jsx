@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-  import { FaPlus } from "react-icons/fa";
+  import { FaPlus , FaStar} from "react-icons/fa";
   import { MdDelete, MdEdit } from "react-icons/md";
   import { Navigate, useNavigate } from "react-router-dom";
   import { toast } from "react-toastify";
   import Navbar from "../component/Navbar";
   import "./Dashboard.css";
-  import "./PostDetails.css"
+  import "./PostDetails.css";
 
 
   const Dashboard = () => {
@@ -134,6 +134,11 @@ import { useEffect, useState } from "react";
                         alt={post.title}
                         className="post-card-image"
                       />
+                    
+                      <button className='favorite-btn'>
+                          <FaStar size={20} color="#ffffff" />
+                        </button>
+                      
 
                       <div className="post-actions">
                         <button
